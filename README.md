@@ -3,19 +3,23 @@
 ## 프로젝트 소개
 
 인코스런에서 진행한 화장품 커머스 웹 어플리케이션 프로젝트입니다.</br>
-👉 사이트 바로가기: https://incourserun.cf
+~~👉 사이트 바로가기: https://incourserun.cf~~ 현재 배포 중단
 
-### Github Repo
-
-* Frontend: https://github.com/INCOURSE-RUN/2-incourserun-commerce-fe
-* Backend: https://github.com/INCOURSE-RUN/2-incourserun-commerce-be
-
-## 개발 기간 및 인원
+### 개발 기간 및 인원
 
 * 개발 기간: 2022.06.13 ~ 2022.07.29
 * 개발 인원
     * Frontend: 1명 (박태준)
     * Backend: 2명 (모창일, 최보미)
+
+### ERD
+
+https://www.erdcloud.com/d/ZtxnvQdoSWn6Z82mc
+![](https://i.imgur.com/wbsNqca.png)
+
+### API 명세서
+
+https://app.swaggerhub.com/apis/BomiChoi/Commerce/1.0
 
 ## 사용 기술
 
@@ -64,7 +68,25 @@
 <img src="https://img.shields.io/badge/Figma-F24E1E?logo=figma&logoColor=white" />
 </section>
 
-## 구현 기능
+## 🌈 도전
+
+> 프론트엔드에서는 이런점을 고려하였어요!
+
+- Chakra UI를 사용하여 간편하고 직관적인 UI 컴포넌트 작성
+- 전역상태 최소화 및 Redux Tool Kit을 사용하여 전역 State를 효율적으로 관리
+- React Hook Form을 사용하여 사용자가 제출한 form 관리 및 유효성 검사
+- 전역 axios instance를 사용하여 API 통신 및 로그인 token 관리
+
+> 백엔드에서는 이런점을 고려하였어요!
+
+- 클래스 및 메서드를 통한 코드 재사용
+- API 설계 시 일관성 및 사용성 고려, REST API 설계 규칙 준수
+- Validation과 Permission을 철저하게 검사
+- 관리자 페이지에서 필요한 데이터들을 쉽게 찾아볼 수 있도록 편의 기능 추가
+
+<hr>
+
+## 기능 상세설명
 
 ### 🔐 로그인/회원가입
 
@@ -107,6 +129,10 @@
 
 - 상품선택 → 바로구매 또는 장바구니 → 결제하기로 주문을 진행할 수 있습니다.
 
+👇 아임포트 결제 및 환불 시퀀스 다이어그램
+<section><img src="https://i.imgur.com/3ju3Sb8.png" width='600'/>
+</section>
+
 👇 장바구니 → 주문 → 메인페이지</br>
 ![](https://i.imgur.com/DoOjLfq.gif)
 
@@ -138,21 +164,20 @@
 👇 마이페이지 → 탈퇴 → 재가입</br>
 ![](https://i.imgur.com/RbREGyn.gif)
 
-## 🌈 도전
+### 🧑‍💼 관리자 페이지
 
-> 프론트엔드에서는 이런점을 고려하였어요!
+* 필터
+    - user: Django에서 기본으로 제공하는 UserAdmin 필터 + 성별, 연령대, 회원가입여부
+    - order: 배송상태, 주문일시(오늘/최근 24시간/최근 1주일/최근 1개월/최근 3개월)
+    - review
+* 검색
+    - user: 이름, 이메일, 전화번호, 우편번호, 주소, 상세주소
+    - order: 주문자 이름, 이메일, 주문번호, 수령인 이름, 수령인 전화번호,
+    - review
+* Excel 파일로 내보내기
+    - OrderAdmin
 
-- Chakra UI를 사용하여 간편하고 직관적인 UI 컴포넌트 작성
-- 전역상태 최소화 및 Redux Tool Kit을 사용하여 전역 State를 효율적으로 관리
-- React Hook Form을 사용하여 사용자가 제출한 form 관리 및 유효성 검사
-- 전역 axios instance를 사용하여 API 통신 및 로그인 token 관리
-
-> 백엔드에서는 이런점을 고려하였어요!
-
-- REST API 설계 규칙을 준수
-- 일관성, 사용성을 고려한 API 설계
-- Validation, Permission을 꼼꼼하게 검사
-- 관리자 페이지에서 필요한 데이터들을 쉽게 찾아볼 수 있도록 기능 추가
+<hr>
 
 # 보일러플레이트 가이드
 
@@ -166,7 +191,7 @@
 
 ## API 명세서
 
-https://api.incourserun.cf/swagger/
+https://app.swaggerhub.com/apis/BomiChoi/Commerce/1.0
 
 ## 0. 프로젝트 구조
 
@@ -271,37 +296,32 @@ app 모델의 데이터 수정 혹은 생성에 따라 실행되는 함수가 �
 
 ### 1) user
 
-* 사용자 관련 모델이 있는 앱
-* 모델
-    - User: 사용자 모델
-    - Social: 소셜로그인 모델
-    - Withdrawal: 탈퇴 모델
+* models.py
+    - User
+    - Social
+    - Withdrawal
 
 ### 2) product
 
-* 상품 관련 모델이 있는 앱
-* 모델
-    - Product: 상품 모델
+* models.py
+    - Product
 
 ### 3) cart
 
-* 장바구니 관련 모델이 있는 앱
-* 모델
-    - Cart: 장바구니 모델
+* models.py
+    - Cart
 
 ### 4) order
 
-* 주문 관련 모델이 있는 앱
-* 모델
-    - Order: 주문 모델
-    - OrderProduct: 주문-상품 모델
-* Custom Command
+* models.py
+    - Order
+    - OrderProduct
+* management/commands
     - seed_orders.py: 주문 데이터 자동 생성 커맨드
 
 ### 5) review
 
-* 리뷰 관련 모델이 있는 앱
-* 모델
+* models.py
     - Review
     - Photo
     - Reply
